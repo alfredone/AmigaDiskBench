@@ -9,9 +9,18 @@ DOCKER_RUN   = docker run --rm -v "$(shell pwd):/work" -w /work $(DOCKER_IMAGE)
 BUILD_DIR = build
 
 # AmiUpdate integration
-AMIUPDATE_DIR = ../AmiUpdateIntegration
+AMIUPDATE_DIR ?= ../AmiUpdateIntegration
 AMIUPDATE_CONFIG = amiupdate.yml
-include $(AMIUPDATE_DIR)/amiupdate.mk
+AMIUPDATE_MK = $(AMIUPDATE_DIR)/amiupdate.mk
+
+ifneq ($(wildcard $(AMIUPDATE_MK)),)
+include $(AMIUPDATE_MK)
+else
+$(warning AmiUpdate integration disabled: $(AMIUPDATE_MK) not found)
+AMIUPDATE_OBJ =
+AMIUPDATE_CFLAGS =
+amiupdate-clean:
+endif
 DIST_DIR = dist
 DIST_NAME = AmigaDiskBench
 TARGET = $(BUILD_DIR)/AmigaDiskBench

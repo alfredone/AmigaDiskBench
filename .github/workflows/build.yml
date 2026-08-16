@@ -1,0 +1,33 @@
+name: Build AmigaDiskBench
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build AmigaOS 4 distribution
+        run: |
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE":/work \
+            -w /work \
+            walkero/amigagccondocker:os4-gcc11 \
+            sh -ec 'make clean && make all && cd dist && lha ao5q AmigaDiskBench.lha AmigaDiskBench readme.txt'
+
+      - name: Upload distribution
+        uses: actions/upload-artifact@v4
+        with:
+          name: AmigaDiskBench
+          path: |
+            dist/AmigaDiskBench.lha
+            dist/AmigaDiskBench/
+          if-no-files-found: error
