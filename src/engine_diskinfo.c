@@ -539,7 +539,7 @@ struct List *ScanSystemDrives(void)
                             char checkPath[64];
                             snprintf(checkPath, sizeof(checkPath), "%s:", entryName);
                             APTR oldWin = IDOS->SetProcWindow((APTR)-1);
-                            BPTR checkLock = IDOS->Lock(checkPath, ACCESS_READ);
+                            BPTR checkLock = IDOS->Lock(checkPath, SHARED_LOCK);
                             IDOS->SetProcWindow(oldWin);
                             if (checkLock) {
                                 IDOS->UnLock(checkLock);
