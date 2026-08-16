@@ -7,7 +7,9 @@
 #include <proto/exec.h>
 #include <stdio.h>
 
+#if ADB_HAS_AMIUPDATE
 #include "amiupdate.h"
+#endif
 #include "debug.h"
 #include "gui.h"
 
@@ -16,7 +18,9 @@ static const char *const __attribute__((used)) ver = VER_STRING;
 int main(int argc, char **argv)
 {
     LOG_DEBUG("Program starting: %s %s (%s)...", APP_TITLE, APP_VERSION_STR, APP_DATE);
+#if ADB_HAS_AMIUPDATE
     SetAmiUpdateENVVariable("AmigaDiskBench");
+#endif
     int result = StartGUI();
     LOG_DEBUG("Program exiting with code %d", result);
     return result;

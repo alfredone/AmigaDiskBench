@@ -15,10 +15,11 @@ AMIUPDATE_MK = $(AMIUPDATE_DIR)/amiupdate.mk
 
 ifneq ($(wildcard $(AMIUPDATE_MK)),)
 include $(AMIUPDATE_MK)
+AMIUPDATE_CFLAGS += -DADB_HAS_AMIUPDATE=1
 else
 $(warning AmiUpdate integration disabled: $(AMIUPDATE_MK) not found)
 AMIUPDATE_OBJ =
-AMIUPDATE_CFLAGS =
+AMIUPDATE_CFLAGS = -DADB_HAS_AMIUPDATE=0
 amiupdate-clean:
 endif
 DIST_DIR = dist
