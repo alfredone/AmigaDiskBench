@@ -307,7 +307,7 @@ static void ValidateVizDirectory(struct List *findings, uint32 *total_files,
     *total_errors = 0;
     *total_warnings = 0;
 
-    BPTR lock = IDOS->Lock("PROGDIR:Visualizations", ACCESS_READ);
+    BPTR lock = IDOS->Lock("PROGDIR:Visualizations", SHARED_LOCK);
     if (!lock) {
         AddFinding(findings, 0, 'E', "Cannot access PROGDIR:Visualizations/ folder");
         (*total_errors)++;

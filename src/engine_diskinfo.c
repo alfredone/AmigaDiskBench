@@ -618,7 +618,7 @@ struct List *ScanSystemDrives(void)
 
                                 // Suppress system requesters (e.g. "No Disk in device CD0")
                                 APTR oldWin = IDOS->SetProcWindow((APTR)-1);
-                                BPTR lock = IDOS->Lock(devicePath, ACCESS_READ);
+                                BPTR lock = IDOS->Lock(devicePath, SHARED_LOCK);
                                 IDOS->SetProcWindow(oldWin);
 
                                 if (!lock) {

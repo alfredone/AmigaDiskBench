@@ -420,7 +420,7 @@ BOOL LoadVizProfiles(void)
 
     g_viz_profile_count = 0;
 
-    lock = IDOS->Lock("PROGDIR:Visualizations", ACCESS_READ);
+    lock = IDOS->Lock("PROGDIR:Visualizations", SHARED_LOCK);
     if (!lock)
     {
         LOG_DEBUG("LoadVizProfiles: Visualizations folder not found\n");
